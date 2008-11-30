@@ -36,6 +36,11 @@
 #include <net/bluetooth/hci_core.h>
 
 #define VERSION "0.6"
+//#define CONFIG_BT_HCIBTUSB_DEBUG
+#ifndef CONFIG_BT_HCIBTUSB_DEBUG
+#undef  BT_DBG
+#define BT_DBG(D...)
+#endif
 
 static int ignore_dga;
 static int ignore_csr;
@@ -160,6 +165,10 @@ static struct usb_device_id blacklist_table[] = {
 
 	/* Kensington Bluetooth USB adapter */
 	{ USB_DEVICE(0x047d, 0x105e), .driver_info = BTUSB_WRONG_SCO_MTU },
+
+	/* Belkin F8T012 and F8T013 devices */
+	{ USB_DEVICE(0x050d, 0x0012), .driver_info = BTUSB_WRONG_SCO_MTU },
+	{ USB_DEVICE(0x050d, 0x0013), .driver_info = BTUSB_WRONG_SCO_MTU },
 
 	/* RTX Telecom based adapters with buggy SCO support */
 	{ USB_DEVICE(0x0400, 0x0807), .driver_info = BTUSB_BROKEN_ISOC },
