@@ -2018,9 +2018,11 @@ static int tg_throttle_down(struct task_group *tg, void *data)
 	struct rq *rq = data;
 	struct cfs_rq *cfs_rq = tg->cfs_rq[cpu_of(rq)];
 
-	/* group is entering throttled state, stop time */
-	if (!cfs_rq->throttle_count)
+	/* group is entering throttled state, record last load */
+	if (!cfs_rq->throttle_count) {
+		update_cfs_load(cfs_rq, 0);
 		cfs_rq->throttled_clock_task = rq->clock_task;
+	}
 	cfs_rq->throttle_count++;
 
 	return 0;
