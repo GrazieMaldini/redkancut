@@ -360,10 +360,10 @@ YAMAHA_DEVICE(0x105d, NULL),
 	}
 },
 {
-	USB_DEVICE(0x0499, 0x1509),
+	USB_DEVICE(0x0499, 0x1507),
 	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
 		/* .vendor_name = "Yamaha", */
-		/* .product_name = "Steinberg UR22", */
+		/* .product_name = "THR10", */
 		.ifnum = QUIRK_ANY_INTERFACE,
 		.type = QUIRK_COMPOSITE,
 		.data = (const struct snd_usb_audio_quirk[]) {
@@ -378,10 +378,6 @@ YAMAHA_DEVICE(0x105d, NULL),
 			{
 				.ifnum = 3,
 				.type = QUIRK_MIDI_YAMAHA
-			},
-			{
-				.ifnum = 4,
-				.type = QUIRK_IGNORE_INTERFACE
 			},
 			{
 				.ifnum = -1
