@@ -295,11 +295,10 @@ static void ahash_op_unaligned_done(struct crypto_async_request *req, int err)
 	 * is a pointer to self, it is also the ADJUSTED "req" .
 	 */
 
-	/* First copy req->result into req->priv.result */
-	ahash_restore_req(areq, err);
+	areq->base.complete = complete;
+	areq->base.data = data;
 
-	/* Complete the ORIGINAL request. */
-	areq->base.complete(&areq->base, err);
+	complete(&areq->base, err);
 }
 
 static int ahash_op_unaligned(struct ahash_request *req,
