@@ -1149,6 +1149,8 @@ static int cpufreq_add_dev(struct device *dev, struct subsys_interface *sif)
 	if (!sys_max_freq)
 		sys_max_freq =  policy->max;
 
+	policy->util = 0;
+
 	blocking_notifier_call_chain(&cpufreq_policy_notifier_list,
 				     CPUFREQ_START, policy);
 
