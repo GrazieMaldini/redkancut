@@ -764,6 +764,7 @@ void inet_csk_listen_stop(struct sock *sk)
 
 		sk_acceptq_removed(sk);
 		__reqsk_free(req);
+		cond_resched();
 	}
 	WARN_ON(sk->sk_ack_backlog);
 }
