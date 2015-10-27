@@ -82,7 +82,7 @@ static void msm_thermal_main(struct work_struct *work)
 		goto reschedule;
 	}
 	/* Debug */
-        // pr_warn("xo_therm_pu2 temp is %lluC\n", temp);
+        pr_warn("xo_therm_pu2 temp is %lluC\n", temp);
 	temp = result.physical;
 	old_zone = t->throttle.curr_zone;
 
