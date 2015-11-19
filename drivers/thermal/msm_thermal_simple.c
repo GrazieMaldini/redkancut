@@ -81,7 +81,8 @@ static void msm_thermal_main(struct work_struct *work)
 		pr_err("Unable to read ADC channel\n");
 		goto reschedule;
 	}
-
+	/* Debug */
+        // pr_warn("xo_therm_pu2 temp is %lluC\n", temp);
 	temp = result.physical;
 	old_zone = t->throttle.curr_zone;
 
@@ -174,12 +175,12 @@ static int do_cpu_throttle(struct notifier_block *nb,
 	spin_unlock(&t->lock);
 
 	if (throttle_freq) {
-		if (user_max && (user_max < throttle_freq))
-			policy->max = user_max;
+		if (policy->user_policy.max && (policy->user_policy.max < throttle_freq))
+			policy->max = policy->user_policy.max;
 		else
 			policy->max = throttle_freq;
 	} else {
-		policy->max = user_max ? user_max : policy->cpuinfo.max_freq;
+		policy->max = policy->user_policy.max ? policy->user_policy.max : policy->cpuinfo.max_freq;
 	}
 
 	if (policy->min > policy->max)
@@ -329,17 +330,17 @@ static ssize_t thermal_zone_read(struct device *dev,
 			t->zone[idx].trip_degC, t->zone[idx].reset_degC);
 }
 
-static ssize_t user_maxfreq_read(struct device *dev,
+/*static ssize_t user_maxfreq_read(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
 	struct thermal_policy *t = t_policy_g;
 
 	return snprintf(buf, PAGE_SIZE, "%u\n", t->conf.user_maxfreq);
 }
-
+*/
 static DEVICE_ATTR(enabled, 0644, enabled_read, enabled_write);
 static DEVICE_ATTR(sampling_ms, 0644, sampling_ms_read, sampling_ms_write);
-static DEVICE_ATTR(user_maxfreq, 0644, user_maxfreq_read, user_maxfreq_write);
+//static DEVICE_ATTR(user_maxfreq, 0644, user_maxfreq_read, user_maxfreq_write);
 static DEVICE_ATTR(zone0, 0644, thermal_zone_read, thermal_zone_write);
 static DEVICE_ATTR(zone1, 0644, thermal_zone_read, thermal_zone_write);
 static DEVICE_ATTR(zone2, 0644, thermal_zone_read, thermal_zone_write);
@@ -352,7 +353,7 @@ static DEVICE_ATTR(zone7, 0644, thermal_zone_read, thermal_zone_write);
 static struct attribute *msm_thermal_attr[] = {
 	&dev_attr_enabled.attr,
 	&dev_attr_sampling_ms.attr,
-	&dev_attr_user_maxfreq.attr,
+	//&dev_attr_user_maxfreq.attr,
 	&dev_attr_zone0.attr,
 	&dev_attr_zone1.attr,
 	&dev_attr_zone2.attr,
