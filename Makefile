@@ -1073,7 +1073,10 @@ prepare0: archprepare
 	$(Q)$(MAKE) $(build)=.
 
 # All the preparing..
-prepare: prepare0
+prepare: prepare0 prepare-objtool
+
+PHONY += prepare-objtool
+prepare-objtool: $(if $(CONFIG_STACK_VALIDATION), tools/objtool FORCE)
 
 # Generate some files
 # ---------------------------------------------------------------------------
