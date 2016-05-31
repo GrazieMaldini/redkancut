@@ -646,6 +646,10 @@ _kgsl_sharedmem_page_alloc(struct kgsl_memdesc *memdesc,
 	memdesc->pagetable = pagetable;
 	memdesc->ops = &kgsl_page_alloc_ops;
 
+	/* Check for integer overflow */
+	if (sglen_alloc && (sizeof(struct scatterlist) > INT_MAX / sglen_alloc))
+		return -EINVAL;
+
 	memdesc->sglen_alloc = sglen_alloc;
 	memdesc->sg = kgsl_sg_alloc(memdesc->sglen_alloc);
 
