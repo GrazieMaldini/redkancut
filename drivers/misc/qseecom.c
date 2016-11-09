@@ -1121,7 +1121,7 @@ static int qseecom_unload_app(struct qseecom_dev_handle *data,
 	bool found_app = false;
 	bool found_dead_app = false;
 
-	if (!memcmp(data->client.app_name, "keymaste", strlen("keymaste"))) {
+	if (!memcmp(data->client.app_name, "keymaste", sizeof("keymaste"))) {
 		pr_warn("Do not unload keymaster app from tz\n");
 		return 0;
 	}
