@@ -4719,6 +4719,11 @@ long sched_setaffinity(pid_t pid, const struct cpumask *in_mask)
 	if (!check_same_owner(p) && !ns_capable(task_user_ns(p), CAP_SYS_NICE))
 		goto out_unlock;
 
+	if (!ns_capable(task_user_ns(p), CAP_SYS_NICE)) {
+		retval = 0;
+		goto out_unlock;
+	}
+
 	retval = security_task_setscheduler(p);
 	if (retval)
 		goto out_unlock;
