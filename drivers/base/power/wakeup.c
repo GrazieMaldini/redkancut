@@ -24,30 +24,30 @@
  * Sensor_ind wakelock. Disabling this could help with a high power consumption
  * during suspend.
  */
-static bool enable_si_ws = true;
+static bool enable_si_ws = false;
 module_param(enable_si_ws, bool, 0644);
 
 /*
  * WLAN wakelocks. Disabling these could help with a high power consumption
  * during suspend, but WiFi may stop working properly.
  */
-static bool enable_wlan_rx_wake_ws = true;
+static bool enable_wlan_rx_wake_ws = false;
 module_param(enable_wlan_rx_wake_ws, bool, 0644);
 
-static bool enable_wlan_ctrl_wake_ws = true;
+static bool enable_wlan_ctrl_wake_ws = false;
 module_param(enable_wlan_ctrl_wake_ws, bool, 0644);
 
-static bool enable_wlan_wake_ws = true;
+static bool enable_wlan_wake_ws = false;
 module_param(enable_wlan_wake_ws, bool, 0644);
 
 /*
  * Bluetooth wakelocks. Disabling these could help with a high power consumption
  * during suspend, but Bluetooth may stop working properly.
  */
-static bool enable_bluedroid_timer_ws = true;
+static bool enable_bluedroid_timer_ws = false;
 module_param(enable_bluedroid_timer_ws, bool, 0644);
 
-static bool enable_bluesleep_ws = true;
+static bool enable_bluesleep_ws = false;
 module_param(enable_bluesleep_ws, bool, 0644);
 
 /*
