@@ -35,6 +35,9 @@ modules.builtin
 *.rej
 *.orig
 patch-3.*
+*zImage
+*dt.img
+*.dtb
 
 #
 # Top-level generic files
@@ -47,6 +50,7 @@ patch-3.*
 /System.map
 /Module.markers
 /Module.symvers
+kernel/hz.bc
 
 #
 # Debian directory (make deb-pkg)
