@@ -798,7 +798,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		dbs_freq_increase(policy, policy->max);
 		return;
 	}
-
+	
 	if (num_online_cpus() > 1) {
 		if (max_load_other_cpu >
 				dbs_tuners_ins.up_threshold_any_cpu_load)
