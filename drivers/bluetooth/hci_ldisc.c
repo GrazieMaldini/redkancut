@@ -48,6 +48,8 @@
 
 #define VERSION "2.2"
 
+static bool reset = 0;
+
 static struct hci_uart_proto *hup[HCI_UART_MAX_PROTO];
 static void hci_uart_tty_wakeup_action(unsigned long data);
 
