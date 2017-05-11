@@ -32,7 +32,6 @@
 #include <linux/kthread.h>
 #include <linux/mutex.h>
 #include <linux/sched.h>
-#include <linux/earlysuspend.h>
 
 #include <asm/cputime.h>
 
@@ -581,6 +580,7 @@ static void __cpuinit interactivex_suspend(int suspend)
 	  }
 }
 
+/*
 static void __cold interactivex_early_suspend(struct early_suspend *handler) {
      stored_timer_rate = timer_rate;
      timer_rate = DEFAULT_TIMER_RATE * 10;
@@ -591,6 +591,7 @@ static void __cold interactivex_late_resume(struct early_suspend *handler) {
      interactivex_suspend(0);
      timer_rate = stored_timer_rate;
 }
+*/
 
 static int cpufreq_governor_interactivex(struct cpufreq_policy *policy,
 		unsigned int event)
@@ -637,7 +638,7 @@ static int cpufreq_governor_interactivex(struct cpufreq_policy *policy,
 
 		enabled = 1;
 		registration = 1;
-                register_early_suspend(&interactivex_power_suspend);
+//              register_early_suspend(&interactivex_power_suspend);
 		registration = 0;
                 pr_info("[imoseyon] interactivex start\n");
 		break;
@@ -666,7 +667,7 @@ static int cpufreq_governor_interactivex(struct cpufreq_policy *policy,
 				&interactivex_attr_group);
 
 		enabled = 0;
-                unregister_early_suspend(&interactivex_power_suspend);
+//              unregister_early_suspend(&interactivex_power_suspend);
                 pr_info("[imoseyon] interactivex inactive\n");
 		break;
 
