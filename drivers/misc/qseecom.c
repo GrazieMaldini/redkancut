@@ -1899,11 +1899,6 @@ static int __qseecom_get_fw_size(const char *appname, uint32_t *fw_size)
 		ret = request_firmware(&fw_entry, fw_name, qseecom.pdev);
 		if (ret)
 			goto err;
-		if (*fw_size > U32_MAX - fw_entry->size) {
-			pr_err("QSEE %s app file size overflow\n", appname);
-			ret = -EINVAL;
-			goto err;
-		}
 		*fw_size += fw_entry->size;
 		release_firmware(fw_entry);
 		fw_entry = NULL;
@@ -1953,12 +1948,6 @@ static int __qseecom_get_fw_data(const char *appname, u8 *img_data,
 		ret = request_firmware(&fw_entry, fw_name,  qseecom.pdev);
 		if (ret) {
 			pr_err("Failed to locate blob %s\n", fw_name);
-			goto err;
-		}
-		if ((fw_entry->size > U32_MAX - load_req->img_len) ||
-			(fw_entry->size + load_req->img_len > fw_size)) {
-			pr_err("Invalid file size for %s\n", fw_name);
-			ret = -EINVAL;
 			goto err;
 		}
 		memcpy(img_data_ptr, fw_entry->data, fw_entry->size);
