@@ -9,4 +9,3 @@ cp arch/arm/boot/dt.img ~/redkancut/
 cd ~/redkancut
 rm *.zip
 zip -r9 redkancut_cancro.zip * -x README redkancut_cancro.zip
-cp *.zip /media/sf_ubuntu/release/
