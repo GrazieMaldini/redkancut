@@ -63,7 +63,6 @@ static struct usb_gadget_strings *usbg_strings[] = {
 static struct usb_configuration usbg_config_driver = {
 	.label                  = "Linux Target",
 	.bConfigurationValue    = 1,
-	.iConfiguration		= USB_G_STR_CONFIG,
 	.bmAttributes           = USB_CONFIG_ATT_SELFPOWER,
 };
 
@@ -75,6 +74,17 @@ static int usbg_cfg_bind(struct usb_configuration *c)
 static int usb_target_bind(struct usb_composite_dev *cdev)
 {
 	int ret;
+
+	ret = usb_string_ids_tab(cdev, usbg_us_strings);
+	if (ret)
+		return ret;
+
+	usbg_device_desc.iManufacturer =
+		usbg_us_strings[USB_G_STR_MANUFACTOR].id;
+	usbg_device_desc.iProduct = usbg_us_strings[USB_G_STR_PRODUCT].id;
+	usbg_device_desc.iSerialNumber = usbg_us_strings[USB_G_STR_SERIAL].id;
+	usbg_config_driver.iConfiguration =
+		usbg_us_strings[USB_G_STR_CONFIG].id;
 
 	ret = usb_add_config(cdev, &usbg_config_driver,
 			usbg_cfg_bind);

@@ -19,6 +19,15 @@ static u32 ibs_caps;
 
 static struct pmu perf_ibs;
 
+static const struct perf_event_attr ibs_notsupp = {
+	.exclude_user	= 1,
+	.exclude_kernel	= 1,
+	.exclude_hv	= 1,
+	.exclude_idle	= 1,
+	.exclude_host	= 1,
+	.exclude_guest	= 1,
+};
+
 static int perf_ibs_init(struct perf_event *event)
 {
 	if (perf_ibs.type != event->attr.type)
