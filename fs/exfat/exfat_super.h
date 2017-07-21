@@ -27,6 +27,7 @@
 #include <linux/fs.h>
 #include <linux/mutex.h>
 #include <linux/swap.h>
+#include <linux/uidgid.h>
 
 #include "exfat_config.h"
 #include "exfat_global.h"
