@@ -1,6 +1,6 @@
 DEFCONFIG=lineageos_cancro_defconfig
 make ARCH=arm CROSS_COMPILE=~/gcc/bin/arm-linux-androideabi- $DEFCONFIG
-make ARCH=arm CROSS_COMPILE=~/gcc/bin/arm-linux-androideabi-
+make -j32 ARCH=arm CROSS_COMPILE=~/gcc/bin/arm-linux-androideabi-
 rm ~/redkancut/modules/*
 for i in `find -name *.ko`; do cp $i ~/redkancut/modules/; done
 scripts/dtbToolCM -s 2048 -d "qcom,msm-id = <" -2 -o arch/arm/boot/dt.img -p /usr/bin/ arch/arm/boot/
