@@ -32,6 +32,12 @@ modules.builtin
 *.lzo
 *.patch
 *.gcno
+*.rej
+*.orig
+patch-3.*
+*zImage
+*dt.img
+*.dtb
 
 #
 # Top-level generic files
@@ -44,6 +50,7 @@ modules.builtin
 /System.map
 /Module.markers
 /Module.symvers
+kernel/hz.bc
 
 #
 # Debian directory (make deb-pkg)
