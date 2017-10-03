@@ -328,7 +328,7 @@ void ktime_get_ts(struct timespec *ts)
 	} while (read_seqretry(&timekeeper.lock, seq));
 
 	set_normalized_timespec(ts, ts->tv_sec + tomono.tv_sec,
-		(s64)ts->tv_nsec + (s64)tomono.tv_nsec + (s64)sleep.tv_nsec + nsecs);
+		(s64)ts->tv_nsec + (s64)tomono.tv_nsec + (s64)nsecs);
 }
 EXPORT_SYMBOL_GPL(ktime_get_ts);
 
