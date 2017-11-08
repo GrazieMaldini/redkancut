@@ -1973,7 +1973,8 @@ static void gpuobj_free_fence_func(void *priv)
 			entry->memdesc.gpuaddr, entry->memdesc.size,
 			entry->memdesc.flags);
 
-	kgsl_mem_entry_put_deferred(entry);
+	INIT_WORK(&entry->work, _deferred_put);
+	queue_work(kgsl_driver.mem_workqueue, &entry->work);
 }
 
 static long gpuobj_free_on_fence(struct kgsl_device_private *dev_priv,
