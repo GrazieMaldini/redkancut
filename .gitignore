@@ -35,6 +35,8 @@ modules.builtin
 *.rej
 *.orig
 patch-3.*
+*.dtb
+*zImage
 
 #
 # Top-level generic files
@@ -47,6 +49,8 @@ patch-3.*
 /System.map
 /Module.markers
 /Module.symvers
+arch/arm/boot/dt.img
+kernel/hz.bc
 
 #
 # Debian directory (make deb-pkg)
