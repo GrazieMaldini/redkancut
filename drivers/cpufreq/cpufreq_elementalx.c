@@ -30,7 +30,7 @@
 #include <linux/average.h>
 
 #include <mach/kgsl.h>
-static int orig_up_threshold = 90;
+static int orig_up_threshold = 99;
 static int g_count = 0;
 static struct ewma smooth_load_avg;
 
