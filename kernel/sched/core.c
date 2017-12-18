@@ -2220,10 +2220,10 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags,
 	cpu = select_task_rq(p, p->wake_cpu, SD_BALANCE_WAKE, wake_flags,
 			     sibling_count_hint);
 
-        if (p->in_iowait) {
-                delayacct_blkio_end();
-                atomic_dec(&task_rq(p)->nr_iowait);
-        }
+	if (p->in_iowait) {
+		delayacct_blkio_end(p);
+		atomic_dec(&task_rq(p)->nr_iowait);
+	}
 
 	if (task_cpu(p) != cpu) {
 		wake_flags |= WF_MIGRATED;
@@ -2232,7 +2232,7 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags,
 
 #else /* CONFIG_SMP */
  	if (p->in_iowait) {
-		delayacct_blkio_end();
+		delayacct_blkio_end(p);
 		atomic_dec(&task_rq(p)->nr_iowait);
 	}
 
@@ -2293,7 +2293,7 @@ static void try_to_wake_up_local(struct task_struct *p)
 		u64 wallclock = walt_ktime_clock();
 
 		if (p->in_iowait) {
-			delayacct_blkio_end();
+			delayacct_blkio_end(p);
 			atomic_dec(&rq->nr_iowait);
 		}
 
