@@ -36,35 +36,6 @@
 
 #include "zram_drv.h"
 
-static inline int z_decompress_safe(const unsigned char *src, size_t src_len,
-			unsigned char *dest, size_t *dest_len)
-{
-#ifdef CONFIG_ZRAM_LZ4_COMPRESS
-	return lz4_decompress_unknownoutputsize(src, src_len, dest, dest_len);
-#else
-	return lzo1x_decompress_safe(src, src_len, dest, dest_len);
-#endif
-}
-
-static inline int z_compress(const unsigned char *src, size_t src_len,
-			unsigned char *dst, size_t *dst_len, void *wrkmem)
-{
-#ifdef CONFIG_ZRAM_LZ4_COMPRESS
-	return lz4_compress(src, src_len, dst, dst_len, wrkmem);
-#else
-	return lzo1x_1_compress(src, src_len, dst, dst_len, wrkmem);
-#endif
-}
-
-static inline size_t z_scratch_size(void)
-{
-#ifdef CONFIG_ZRAM_LZ4_COMPRESS
-	return LZ4_MEM_COMPRESS;
-#else
-	return LZO1X_MEM_COMPRESS;
-#endif
-}
-
 /* Globals */
 static int zram_major;
 static struct zram *zram_devices;
@@ -408,20 +379,6 @@ static struct zram_meta *zram_meta_alloc(int device_id, u64 disksize)
 	if (!meta)
 		return NULL;
 
-<<<<<<< HEAD
-	meta->compress_workmem = kzalloc(z_scratch_size(), GFP_KERNEL);
-	if (!meta->compress_workmem)
-		goto free_meta;
-
-	meta->compress_buffer =
-		(void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO, 1);
-	if (!meta->compress_buffer) {
-		pr_err("Error allocating compressor buffer space\n");
-		goto free_workmem;
-	}
-
-=======
->>>>>>> 6d648ae3... zram: use zcomp compressing backends
 	num_pages = disksize >> PAGE_SHIFT;
 	meta->table = vzalloc(num_pages * sizeof(*meta->table));
 	if (!meta->table) {
