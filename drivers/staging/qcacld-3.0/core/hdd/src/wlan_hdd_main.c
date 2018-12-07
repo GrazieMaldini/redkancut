@@ -9342,6 +9342,7 @@ static int hdd_update_cds_config(hdd_context_t *hdd_ctx)
 		hdd_ctx->config->crash_inject_enabled;
 
 	cds_cfg->enable_mc_list = hdd_ctx->config->fEnableMCAddrList;
+	cds_cfg->dfs_master_enable = hdd_ctx->config->enableDFSMasterCap;
 	cds_cfg->ap_maxoffload_peers = hdd_ctx->config->apMaxOffloadPeers;
 
 	cds_cfg->ap_maxoffload_reorderbuffs =
@@ -12625,7 +12626,8 @@ static int __init hdd_module_init(void)
 {
 	INIT_WORK(&boot_work, wlan_hdd_boot_fn);
 	schedule_work(&boot_work);
- 	return 0;
+
+	return 0;
 }
 #endif
 
@@ -13409,7 +13411,7 @@ bool hdd_is_cli_iface_up(hdd_context_t *hdd_ctx)
 module_init(hdd_module_init);
 module_exit(hdd_module_exit);
 #else
-device_initcall(hdd_module_init);
+late_initcall(hdd_module_init);
 #endif
 
 MODULE_LICENSE("Dual BSD/GPL");
