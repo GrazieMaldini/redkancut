@@ -330,7 +330,6 @@ config CPU_FREQ_GOV_PWRUTILX
 	  proportional to the maximum available frequency.  If that is not the
 	  case, it is proportional to the current frequency of the CPU.
  	  If in doubt, say N.
-endif
 
 comment "CPU frequency scaling drivers"
 
