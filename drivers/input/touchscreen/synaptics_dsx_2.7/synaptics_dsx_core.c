@@ -154,8 +154,11 @@
 #define GESTURE_EVENT_V 		KEY_TP_GESTURE_V
 #define GESTURE_EVENT_W 		KEY_TP_GESTURE_W
 #define GESTURE_EVENT_Z 		KEY_TP_GESTURE_Z
-#define GESTURE_EVENT_SWIPE_UP 		258
 #define GESTURE_EVENT_DOUBLE_CLICK 	KEY_WAKEUP
+#define GESTURE_EVENT_SWIPE_UP          255
+#define GESTURE_EVENT_SWIPE_DOWN        256
+#define GESTURE_EVENT_SWIPE_LEFT        257
+#define GESTURE_EVENT_SWIPE_RIGHT       268
 #endif
 
 static int synaptics_rmi4_check_status(struct synaptics_rmi4_data *rmi4_data,
@@ -1597,6 +1600,18 @@ static int synaptics_rmi4_f12_abs_report(struct synaptics_rmi4_data *rmi4_data,
 					(gesture_y_distance > 0)){
 					pr_debug("Gesture: Swipe up.\n");
 					keycode = GESTURE_EVENT_SWIPE_UP;
+				} else if ((direction == vertical_direction) &&
+					(gesture_y_distance < -0)){
+					pr_debug("Gesture: Swipe down.\n");
+					keycode = GESTURE_EVENT_SWIPE_DOWN;
+				} else if ((direction == horizontal_direction) &&
+					(gesture_y_distance < -0)){
+					pr_debug("Gesture: Swipe left.\n");
+					keycode = GESTURE_EVENT_SWIPE_LEFT;
+				} else if ((direction == horizontal_direction) &&
+					(gesture_y_distance > 0)){
+					pr_debug("Gesture: Swipe right.\n");
+					keycode = GESTURE_EVENT_SWIPE_RIGHT;
 				}
 				break;
 			default:
